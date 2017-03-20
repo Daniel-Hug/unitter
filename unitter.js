@@ -22,8 +22,8 @@ var Unitter = (function() {
 		var parts = numAndUnit.split(' ');
 		var num = parts[0];
 		var unit = parts[1];
-		var baseNum = fixProduct(num * this.unitValues[unit]);
-		return targetUnit ? fixProduct(baseNum / this.unitValues[targetUnit]) : baseNum;
+		var baseNum = num * this.unitValues[unit];
+		return fixProduct(targetUnit ? baseNum / this.unitValues[targetUnit] : baseNum);
 	};
 
 	//  - num can be a string ("<quantity> <unit>") such as is passed to .getValue() or
@@ -40,9 +40,9 @@ var Unitter = (function() {
 			}
 		}
 
-		if (fromUnit) num = fixProduct(num * this.unitValues[fromUnit]);
+		if (fromUnit) num = num * this.unitValues[fromUnit];
 
-		return fixProduct(num / this.unitValues[targetUnit]) + ' ' + targetUnit;
+		return Number((num / this.unitValues[targetUnit]).toFixed(1)) + ' ' + targetUnit;
 	};
 
 	function fixProduct(num) {
